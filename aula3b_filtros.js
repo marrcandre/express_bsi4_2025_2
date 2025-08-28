@@ -25,7 +25,7 @@ app.get('/produtos', (req, res) => {
     res.json({ produtos: resultado });
 });
 
-app.listen(3000, () => console.log('Servidor rodando na porta 3000'));
+app.listen(8000, () => console.log('Servidor rodando na porta 8000'));
 
 // Para executar o servidor, use o comando:
 // node aula3b_filtros.js

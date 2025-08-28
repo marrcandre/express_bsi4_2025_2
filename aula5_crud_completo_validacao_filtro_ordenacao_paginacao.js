@@ -13,14 +13,17 @@ let produtos = [
 
 // Listar todos os produtos (GET), com filtros, ordenação e paginação
 app.get('/produtos', (req, res) => {
+    // Desestruturação dos parâmetros de consulta
     let { min_preco, max_preco, pagina, por_pagina, ordenar_por, ordem } = req.query;
+
+    // Carregando os produtos
     let resultado = [...produtos];
 
-    // Filtros
+    // Aplicando filtros
     if (min_preco) resultado = resultado.filter(p => p.preco >= parseFloat(min_preco));
     if (max_preco) resultado = resultado.filter(p => p.preco <= parseFloat(max_preco));
 
-    // Ordenação
+    // Aplicando ordenação
     if (ordenar_por) {
         const validSort = ["nome", "preco"];
         if (!validSort.includes(ordenar_por)) {
@@ -33,7 +36,7 @@ app.get('/produtos', (req, res) => {
         });
     }
 
-    // Paginação
+    // Aplicando paginação
     pagina = parseInt(pagina) || 0;
     por_pagina = parseInt(por_pagina) || resultado.length;
     resultado = resultado.slice(pagina, pagina + por_pagina);
@@ -52,7 +55,7 @@ app.get('/produtos/:id', (req, res) => {
 app.post('/produtos', (req, res) => {
     const { nome, preco } = req.body;
 
-    // Validação
+    // Aplicando validações
     if (!nome || nome.trim() === "") {
         return res.status(400).json({ error: "O nome não pode ser vazio" });
     }
@@ -74,7 +77,7 @@ app.put('/produtos/:id', (req, res) => {
 
     const { nome, preco } = req.body;
 
-    // Validação
+    // Aplicando validações
     if (!nome || nome.trim() === "") {
         return res.status(400).json({ error: "O nome não pode ser vazio" });
     }
